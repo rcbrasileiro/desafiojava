@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.desafio.api.domain.User;
 import com.desafio.api.repository.UserRepository;
+import com.desafio.api.security.config.SecurityConfig;
 import com.desafio.api.service.exception.EmailAlreadyExistsException;
 import com.desafio.api.service.exception.InvalidFieldsException;
 import com.desafio.api.service.exception.LoginAlreadyExistsException;
@@ -32,13 +32,13 @@ public class UserServiceImpl implements UserService {
 	private CarService carService;
 
 	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private SecurityConfig securityConfig;
 
 	@Override
 	@Transactional
 	public User save(User user) {
 		this.validateFields(user);
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setPassword(securityConfig.passwordEncoder().encode(user.getPassword()));
 		user.getCars().forEach(car -> car.setUser(user));		
 		return this.userRepository.save(user);
 	}
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public User update(User user) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setPassword(securityConfig.passwordEncoder().encode(user.getPassword()));
 		this.validateFields(user);
 		return this.userRepository.save(user);
 	}
