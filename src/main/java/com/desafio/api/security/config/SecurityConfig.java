@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.desafio.api.security.UserDetailsServiceImpl;
 import com.desafio.api.security.filter.AuthenticationAuthFilter;
 import com.desafio.api.security.filter.JwtAuthFilter;
+import com.desafio.api.security.util.Access;
 
 @Configuration
 @EnableWebSecurity
@@ -32,8 +33,6 @@ public class SecurityConfig {
 	@Autowired
 	private AuthenticationAuthFilter exceptionAuthFilter;
 
-	private static final String[] PUBLIC_ACCESS = { "/h2-console/**", "/api/users/**", "/api/signin" };
-
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new UserDetailsServiceImpl();
@@ -45,7 +44,7 @@ public class SecurityConfig {
 				.requiresSecure())
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(
-						auth -> auth.requestMatchers(PUBLIC_ACCESS).permitAll().anyRequest().authenticated())
+						auth -> auth.requestMatchers(Access.PUBLIC_ACCESS).permitAll().anyRequest().authenticated())
 				.headers(headers -> headers.frameOptions(f -> f.sameOrigin()))
 				.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider())

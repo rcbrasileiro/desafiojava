@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import com.desafio.api.web.dto.UserFormDTO;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +27,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Tag(name = "Usuário", description = "Entidade que representa o usuário")
 @Entity
 @Table(name = "user_table")
 @Getter
