@@ -10,11 +10,13 @@
 	</parent>
 	<groupId>com.desafio</groupId>
 	<artifactId>DesafioJavaAPI</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>demo-0.0.1</version>
 	<name>DesafioJavaAPI</name>
 	<description>Desafio Técnico Pitang</description>
 	<properties>
 		<java.version>17</java.version>
+		<maven.compiler.source>17</maven.compiler.source>
+    	<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>
