@@ -73,4 +73,10 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+	
+	@GetMapping("/teste")
+    public ResponseEntity<String> ssds(@PathVariable Long id) {
+		System.out.println("Deu certo");
+        return ResponseEntity.ok("Funcionou");
+    }
 }
