@@ -1,6 +1,7 @@
 package com.desafio.api.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,10 +15,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.desafio.api.security.UserDetailsServiceImpl;
+import com.desafio.api.security.filter.AuthenticationAuthFilter;
 import com.desafio.api.security.filter.JwtAuthFilter;
 
 @Configuration
@@ -27,6 +30,13 @@ public class SecurityConfig {
 
 	@Autowired
 	private JwtAuthFilter jwtAuthFilter;
+
+	@Autowired
+	private AuthenticationAuthFilter exceptionAuthFilter;
+
+	@Autowired
+	@Qualifier("delegatedAuthenticationEntryPoint")
+	private AuthenticationEntryPoint authEntryPoint;
 
 	private static final String[] PUBLIC_ACCESS = { "/h2-console/**", "/api/users/**", "/api/signin" };
 
@@ -38,12 +48,14 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers(PUBLIC_ACCESS).permitAll().anyRequest().authenticated())
+				.authorizeHttpRequests(
+						auth -> auth.requestMatchers(PUBLIC_ACCESS).permitAll().anyRequest().authenticated())
 				.headers(headers -> headers.frameOptions(f -> f.sameOrigin()))
 				.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider())
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-				.build();
+				.addFilterBefore(exceptionAuthFilter, JwtAuthFilter.class)
+				.exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPoint)).build();
 	}
 
 	@Bean

@@ -11,10 +11,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,20 +55,29 @@ public class CarControllerTest {
 	
 	@MockBean
 	private UserServiceImpl userService;
+	
+	private User user;
+	
+	private Car car;
+	
+	private CarFormDTO carFormDTO;
+	
+	@BeforeEach
+	void setUp() throws Exception {
+		user = UserMock.create();
+		car = CarMock.create();
+		carFormDTO = new CarFormDTO(2022, "XYZ-5679", "Ford Fusion", "Preto");
+		
+	}
 
 
 	@Test
 	public void testSaveCar() throws Exception {
 
-		User user = UserMock.create();
 
 		when(userRepository.findByLogin(user.getLogin())).thenReturn(user);
 
-		Car savedCar = CarMock.create();
-
-		when(carService.save(any(Car.class))).thenReturn(savedCar);
-
-		CarFormDTO carFormDTO = new CarFormDTO(2022, "XYZ-5679", "Ford Fusion", "Preto");
+		when(carService.save(any(Car.class))).thenReturn(car);
 
 		String token = getToken();
 
@@ -76,45 +85,35 @@ public class CarControllerTest {
 				.contentType(MediaType.APPLICATION_JSON).content(asJsonString(carFormDTO)))
 				.andExpect(status().isCreated())
 				.andExpect(jsonPath("$.id", equalTo(1)))
-				.andExpect(jsonPath("$.year", equalTo(savedCar.getYear())))
-				.andExpect(jsonPath("$.licensePlate", equalTo(savedCar.getLicensePlate())))
-				.andExpect(jsonPath("$.model", equalTo(savedCar.getModel())))
-				.andExpect(jsonPath("$.color", equalTo(savedCar.getColor())));
+				.andExpect(jsonPath("$.year", equalTo(car.getYear())))
+				.andExpect(jsonPath("$.licensePlate", equalTo(car.getLicensePlate())))
+				.andExpect(jsonPath("$.model", equalTo(car.getModel())))
+				.andExpect(jsonPath("$.color", equalTo(car.getColor())));
 	}
 	
 	@Test
 	public void testUpdateCar() throws Exception {
 
-		User user = UserMock.create();
-
 		when(userRepository.findByLogin(user.getLogin())).thenReturn(user);
 
-		Car existingCar = CarMock.create();
-
-		when(carService.update(any(Car.class))).thenReturn(existingCar);
-		
-		CarFormDTO carFormDTO = new CarFormDTO(2022, "XYZ-5679", "Ford Fusion", "Preto");
+		when(carService.update(any(Car.class))).thenReturn(car);
 		
 		String token = getToken();
 
-		mockMvc.perform(put("/api/cars/{id}", existingCar.getId()).header("Authorization", "Bearer " + token)
+		mockMvc.perform(put("/api/cars/{id}", car.getId()).header("Authorization", "Bearer " + token)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(carFormDTO))).andExpect(status().isOk())
-				.andExpect(jsonPath("$.id").value(existingCar.getId()))
-				.andExpect(jsonPath("$.year").value(existingCar.getYear()))
-				.andExpect(jsonPath("$.licensePlate").value(existingCar.getLicensePlate()))
-				.andExpect(jsonPath("$.model").value(existingCar.getModel()))
-				.andExpect(jsonPath("$.color").value(existingCar.getColor()));
+				.andExpect(jsonPath("$.id").value(car.getId()))
+				.andExpect(jsonPath("$.year").value(car.getYear()))
+				.andExpect(jsonPath("$.licensePlate").value(car.getLicensePlate()))
+				.andExpect(jsonPath("$.model").value(car.getModel()))
+				.andExpect(jsonPath("$.color").value(car.getColor()));
 	}
 	
 	@Test
     public void testDeleteCar() throws Exception {
 		
-		User user = UserMock.create();
-
 		when(userRepository.findByLogin(user.getLogin())).thenReturn(user);
-		
-		Car car = CarMock.create();
 		
 		String token = getToken();
 
@@ -127,34 +126,28 @@ public class CarControllerTest {
 	@Test
     public void testFindById_ExistingCar() throws Exception {
 		
-		User user = UserMock.create();
-
 		when(userRepository.findByLogin(user.getLogin())).thenReturn(user);
      
-        Car existingCar = CarMock.create();
-        
-        when(carService.findById(existingCar.getId())).thenReturn(Optional.of(existingCar));
+        when(carService.findById(car.getId())).thenReturn(Optional.of(car));
 
         String token = getToken();
         
-        mockMvc.perform(get("/api/cars/{id}", existingCar.getId())
+        mockMvc.perform(get("/api/cars/{id}", car.getId())
         		.header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(existingCar.getId()))
-                .andExpect(jsonPath("$.year").value(existingCar.getYear()))
-                .andExpect(jsonPath("$.licensePlate").value(existingCar.getLicensePlate()))
-                .andExpect(jsonPath("$.model").value(existingCar.getModel()))
-                .andExpect(jsonPath("$.color").value(existingCar.getColor()));
+                .andExpect(jsonPath("$.id").value(car.getId()))
+                .andExpect(jsonPath("$.year").value(car.getYear()))
+                .andExpect(jsonPath("$.licensePlate").value(car.getLicensePlate()))
+                .andExpect(jsonPath("$.model").value(car.getModel()))
+                .andExpect(jsonPath("$.color").value(car.getColor()));
        
-        Mockito.verify(carService, Mockito.times(1)).findById(existingCar.getId());
+        Mockito.verify(carService, Mockito.times(1)).findById(car.getId());
     }
 	
 	@Test
     public void testFindById_NonExistingCar() throws Exception {
 		
-		User user = UserMock.create();
-
 		when(userRepository.findByLogin(user.getLogin())).thenReturn(user);
 		
         when(carService.findById(anyLong())).thenReturn(Optional.empty());
@@ -171,15 +164,11 @@ public class CarControllerTest {
 	
 	@Test
     public void testListCars() throws Exception {
-        List<Car> carList = new ArrayList<Car>();
         
-        carList.add(CarMock.create());
-        carList.add(CarMock.create2());
+        List<Car> carList = List.of(CarMock.create(), CarMock.create2());
         
         Page<Car> carsPage = new PageImpl<>(carList);
         
-        User user = UserMock.create();
-
 		when(userRepository.findByLogin(user.getLogin())).thenReturn(user);
         
         when(carService.findAll(any(Pageable.class))).thenReturn(carsPage);

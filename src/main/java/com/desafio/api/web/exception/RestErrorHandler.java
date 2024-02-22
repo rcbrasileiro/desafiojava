@@ -39,10 +39,9 @@ public class RestErrorHandler {
 	}
 	
 	@ExceptionHandler({ AuthenticationException.class })
-	@ResponseBody
-	public ResponseEntity<RestError> handleAuthenticationException(AuthenticationException ex) {
-
-		RestError restError = new RestError("Invalid login or password", HttpStatus.UNAUTHORIZED.value());
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(restError);
-	}
+    @ResponseBody
+    public ResponseEntity<RestError> handleAuthenticationException(Exception ex) {
+        RestError restError = new RestError(ex.getMessage(), HttpStatus.UNAUTHORIZED.value());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(restError);
+    }
 }

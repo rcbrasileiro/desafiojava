@@ -7,7 +7,9 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
+import com.desafio.api.domain.Car;
 import com.desafio.api.domain.User;
 
 public class UserMock {
@@ -15,7 +17,7 @@ public class UserMock {
 	public static User create() {
 		User user = mock(User.class);
 		when(user.getId()).thenReturn(1L);
-		when(user.getFirstName()).thenReturn("João");
+		when(user.getFirstName()).thenReturn("Joao");
 		when(user.getLastName()).thenReturn("Silva");
 		when(user.getEmail()).thenReturn("joao@example.com");
 		LocalDate birthday = LocalDate.of(1990, Month.JANUARY, 1);
@@ -24,6 +26,27 @@ public class UserMock {
 		when(user.getLogin()).thenReturn("joaosilva");
 		when(user.getPassword()).thenReturn("$2a$12$4AOuyX3CZVD8n7Bk9aP2FO/YNxSWKZB7BpUlum/h0QuPJ1ZU1hnmK");
 		when(user.getPhone()).thenReturn("(12) 3456-7890");
+		return user;
+	}
+
+	public static User createUserCar() {
+		User user = mock(User.class);
+
+		when(user.getId()).thenReturn(1L);
+		when(user.getFirstName()).thenReturn("Joao");
+		when(user.getLastName()).thenReturn("Silva");
+		when(user.getEmail()).thenReturn("joao@example.com");
+		LocalDate birthday = LocalDate.of(1990, Month.JANUARY, 1);
+		Date date = Date.from(birthday.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		when(user.getBirthday()).thenReturn(date);
+		when(user.getLogin()).thenReturn("joaosilva");
+		when(user.getPassword()).thenReturn("$2a$12$4AOuyX3CZVD8n7Bk9aP2FO/YNxSWKZB7BpUlum/h0QuPJ1ZU1hnmK");
+		when(user.getPhone()).thenReturn("(12) 3456-7890");
+
+		List<Car> carList = List.of(CarMock.create(), CarMock.create2());
+
+		when(user.getCars()).thenReturn(carList);
+
 		return user;
 	}
 }
