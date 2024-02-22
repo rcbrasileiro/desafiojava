@@ -33,8 +33,6 @@ public class SecurityConfig {
 	@Autowired
 	private AuthenticationAuthFilter exceptionAuthFilter;
 
-	
-
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new UserDetailsServiceImpl();
