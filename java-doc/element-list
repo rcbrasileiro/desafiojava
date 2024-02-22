@@ -1,0 +1,16 @@
+com.desafio.api
+com.desafio.api.config
+com.desafio.api.domain
+com.desafio.api.repository
+com.desafio.api.security
+com.desafio.api.security.config
+com.desafio.api.security.filter
+com.desafio.api.security.model
+com.desafio.api.security.service
+com.desafio.api.security.util
+com.desafio.api.service
+com.desafio.api.service.exception
+com.desafio.api.util
+com.desafio.api.web.controller
+com.desafio.api.web.dto
+com.desafio.api.web.exception
