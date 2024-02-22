@@ -32,7 +32,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 
 # ESTÓRIAS DE USUÁRIO
 
-###1. Controle de acesso:
+##1. Controle de acesso:
 
 	* SU01 - Autenticação do usuário:
 		* Como um usuário, quero poder me autenticar no sistema usando minhas credenciais (login/senha) para acessar os recursos que devem ser protegidos.
@@ -63,7 +63,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 			- Retornar as informações do usuário.
 			- Retornar a data de criação do usuário e a últivez que o usuário realizou o login.
 			
-###2. Gestão dos usuários:
+##2. Gestão dos usuários:
 
 	* SU05 - Listagem dos usuários:
 		* Como um usuário não autenticado, quero listar todos os usuários cadastrados no sistema.
@@ -100,7 +100,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 		* Critérios de Aceitação:
 			- Usuário removido no sistema.			
 			
-###3. Gestão dos carros:
+##3. Gestão dos carros:
 
 	* SU09 - Listagem dos carros:
 		* Como um usuário autenticado, quero listar todos os carros do usuário autenticado no sistema.
