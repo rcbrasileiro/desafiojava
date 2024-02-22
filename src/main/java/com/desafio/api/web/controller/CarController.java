@@ -22,8 +22,13 @@ import com.desafio.api.service.CarService;
 import com.desafio.api.web.dto.CarFormDTO;
 import com.desafio.api.web.dto.CarResultDTO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 
+@Tag(name = "Gestão do carro", description = "API de gestão dos carros")
 @RestController
 @RequestMapping("/api/cars")
 @Validated
@@ -32,6 +37,15 @@ public class CarController {
 	@Autowired
 	private CarService carService;
 
+	@Operation(
+		      summary = "Salvar",
+		      description = "Salva um novo carro")
+	 @ApiResponses({
+	      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+	      @ApiResponse(responseCode = "401", description = "Unauthorized - invalid session"),
+	      @ApiResponse(responseCode = "409", description = "License plate already exists"),
+	      @ApiResponse(responseCode = "400", description = "Invalid fields"),
+	      @ApiResponse(responseCode = "402", description = "Missing fields")})
 	@PostMapping
 	public ResponseEntity<CarResultDTO> save(@RequestBody @Validated CarFormDTO carFormDTO,
 			HttpServletRequest request) {
@@ -43,9 +57,17 @@ public class CarController {
 		return ResponseEntity.created(URI.create(location)).body(new CarResultDTO(car));
 	}
 
+	@Operation(
+		      summary = "Atualizar",
+		      description = "Atualizar um carro")
+	 @ApiResponses({
+	      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+	      @ApiResponse(responseCode = "401", description = "Unauthorized - invalid session"),
+	      @ApiResponse(responseCode = "409", description = "License plate already exists"),
+	      @ApiResponse(responseCode = "400", description = "Invalid fields"),
+	      @ApiResponse(responseCode = "402", description = "Missing fields")})
 	@PutMapping("/{id}")
-	public ResponseEntity<CarResultDTO> update(@PathVariable Long id,
-			@RequestBody @Validated CarFormDTO carFormDTO) {
+	public ResponseEntity<CarResultDTO> update(@PathVariable Long id, @RequestBody @Validated CarFormDTO carFormDTO) {
 		Car car = Car.buildToCar(carFormDTO);
 		car.setId(id);
 		car = this.carService.update(car);
@@ -53,18 +75,36 @@ public class CarController {
 		return ResponseEntity.ok(carResultDTO);
 	}
 
+	@Operation(
+		      summary = "Deletar",
+		      description = "Deletar um carro")
+	 @ApiResponses({
+	      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+	      @ApiResponse(responseCode = "401", description = "Unauthorized - invalid session")})
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		this.carService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
+	@Operation(
+		      summary = "Listar",
+		      description = "Listar todos os carros")
+	 @ApiResponses({
+	      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+	      @ApiResponse(responseCode = "401", description = "Unauthorized - invalid session")})
 	@GetMapping
 	public ResponseEntity<Page<CarResultDTO>> list(Pageable pageable) {
 		Page<Car> carsPage = this.carService.findAll(pageable);
 		return ResponseEntity.ok(carsPage.map(CarResultDTO::new));
 	}
 
+	@Operation(
+		      summary = "Buscar",
+		      description = "Buscar por id")
+	 @ApiResponses({
+	      @ApiResponse(responseCode = "401", description = "Unauthorized"),
+	      @ApiResponse(responseCode = "401", description = "Unauthorized - invalid session")})
 	@GetMapping("/{id}")
 	public ResponseEntity<CarResultDTO> findById(@PathVariable Long id) {
 		Optional<Car> carOptional = this.carService.findById(id);
