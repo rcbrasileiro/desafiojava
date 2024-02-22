@@ -41,7 +41,9 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		return http.csrf(csrf -> csrf.disable())
+		return http.requiresChannel(rc -> rc.requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+				.requiresSecure())
+				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(
 						auth -> auth.requestMatchers(PUBLIC_ACCESS).permitAll().anyRequest().authenticated())
 				.headers(headers -> headers.frameOptions(f -> f.sameOrigin()))
