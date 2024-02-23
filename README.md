@@ -213,7 +213,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 	Defesa Técnica		
    O uso do BCrypt para criptografar senhas é uma prática essencial de segurança em aplicações web, pois oferece uma camada adicional de proteção contra ataques de força bruta e violações de dados. Ao utilizar o BCrypt, as senhas dos usuários são transformadas em hashes irreversíveis antes de serem armazenadas no banco de dados, garantindo que mesmo em caso de acesso não autorizado ao banco de dados, as senhas originais permaneçam protegidas. Além disso, o BCrypt utiliza um processo de stretching, que aumenta significativamente o tempo necessário para gerar cada hash, dificultando ainda mais tentativas de quebra de senha. Dessa forma, o uso do BCrypt para criptografar senhas é uma escolha segura e eficaz para proteger as informações dos usuários e manter a integridade e confidencialidade dos dados da aplicação.
    
-* **Swagger:*
+* **Swagger:**
 
 
 	Justificativa
