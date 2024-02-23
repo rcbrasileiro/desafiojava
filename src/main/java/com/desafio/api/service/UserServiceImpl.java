@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User update(User user) {
 		user.setPassword(securityConfig.passwordEncoder().encode(user.getPassword()));
+		user.getCars().forEach(car -> car.setUser(user));
 		this.validateFields(user);
 		return this.userRepository.save(user);
 	}

@@ -44,7 +44,7 @@ public class AuthenticationAuthFilter extends OncePerRequestFilter {
 				token = authHeader.substring(7);
 				this.jwtService.extractUsername(token);
 
-			} catch (ExpiredJwtException e) {
+			} catch (Exception e) {
 				response.setStatus(HttpStatus.UNAUTHORIZED.value());
 				response.getWriter().write(convertObjectToJson(
 						new RestError("Unauthorized - invalid session", HttpStatus.UNAUTHORIZED.value())));
