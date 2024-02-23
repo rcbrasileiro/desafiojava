@@ -15,6 +15,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 5. Testes unitários usando MockMvc
 6. Senha do usuário com criptografia - bcrypt
 7. Heroko - Para deploy da aplicação
+8. Swagger - Para documentação da API
 
 # Testes
 
@@ -30,6 +31,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 	* Criar uma tarefa do tipo Maven build e no goal colocar **test**
 	* Clicar com o botão direito do mouse em cima do diretório de teste (**src/main/test**) e depois **Run as > Junit Test** ou simplesmente o atalho ** ALT + SHIFT + X, T**
 
+3. Também é possível acessar a API através do Swagger, para isso basta clicar nesse [link](http://3.92.46.140/swagger-ui/) e acessar a documentação 
 # ESTÓRIAS DE USUÁRIO
 
 ##1. Controle de acesso:
@@ -197,19 +199,26 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 	
 * **Spring security e JWT token:**
 
-	Justificativa:
-	
+	Justificativa	
 	O Spring Security é uma estrutura robusta e amplamente adotada para proteger aplicações web em Java. Ele fornece uma variedade de recursos de segurança, como autenticação, autorização, controle de acesso e prevenção contra ataques comuns, garantindo a integridade e a confidencialidade dos dados da aplicação. Além disso, o uso de tokens JWT (JSON Web Tokens) oferece uma maneira eficiente e escalável de implementar a autenticação baseada em tokens, permitindo que os usuários se autentiquem e acessem recursos protegidos de forma segura e sem estado.
 
 	Defesa Técnica	
 	O uso do Spring Security em conjunto com tokens JWT é uma abordagem altamente segura e eficaz para proteger aplicações web modernas. O Spring Security oferece uma configuração flexível e abrangente para lidar com requisitos complexos de segurança, incluindo autenticação com diferentes provedores (como banco de dados, LDAP, OAuth, etc.) e autorização baseada em regras de negócio específicas. Por outro lado, os tokens JWT são uma solução leve e sem estado para autenticação de usuários, permitindo que as aplicações validem a identidade dos usuários de forma eficiente e confiável sem a necessidade de consultar o estado do servidor. Juntos, o Spring Security e os tokens JWT oferecem uma solução completa e segura para proteger aplicações web contra ameaças de segurança, garantindo o acesso seguro aos recursos da aplicação apenas para usuários autenticados e autorizados.
 	
-	* **Criptografia com BCrypt:**
+* **Criptografia com BCrypt:**
 
-	Justificativa:
-	
-	O uso de senhas criptografadas com BCrypt é uma prática recomendada para garantir a segurança das informações sensíveis dos usuários em sistemas web. O BCrypt é um algoritmo de hash de senhas amplamente reconhecido por sua robustez e resistência a ataques de força bruta. Ele utiliza técnicas de salting e stretching para tornar as senhas armazenadas irreconhecíveis mesmo em caso de vazamento do banco de dados. Isso garante a confidencialidade das senhas dos usuários, protegendo contra acesso não autorizado e comprometimento de contas.
+	Justificativa	
+	O uso de senhas criptografadas com BCrypt é uma prática recomendada para garantir a segurança das informações sensíveis dos usuários em sistemas web. O BCrypt é um algoritmo de hash de senhas amplamente reconhecido por sua robustez e resistência a ataques de força bruta. Ele utiliza técnicas de salting e stretching para tornar as senhas armazenadas irreconhecíveis mesmo em caso de vazamento do banco de dados. Isso garante a confidencialidade das senhas dos usuários, protegendo contra acesso não autorizado e comprometimento de contas..
+	Defesa Técnica		
+   O uso do BCrypt para criptografar senhas é uma prática essencial de segurança em aplicações web, pois oferece uma camada adicional de proteção contra ataques de força bruta e violações de dados. Ao utilizar o BCrypt, as senhas dos usuários são transformadas em hashes irreversíveis antes de serem armazenadas no banco de dados, garantindo que mesmo em caso de acesso não autorizado ao banco de dados, as senhas originais permaneçam protegidas. Além disso, o BCrypt utiliza um processo de stretching, que aumenta significativamente o tempo necessário para gerar cada hash, dificultando ainda mais tentativas de quebra de senha. Dessa forma, o uso do BCrypt para criptografar senhas é uma escolha segura e eficaz para proteger as informações dos usuários e manter a integridade e confidencialidade dos dados da aplicação.
+   
+* **Swagger:*
+
+
+	Justificativa
+
+	O Swagger oferece uma maneira conveniente de documentar APIs, fornecendo uma representação visual e interativa da API. Isso permite que desenvolvedores, parceiros e consumidores entendam facilmente a estrutura e os detalhes das APIs. Além disso, o Swagger facilita a geração automática de documentação com base nas anotações Java existentes no código-fonte da aplicação, o que economiza tempo e reduz erros de documentação manual.
 
 	Defesa Técnica	
-	
-   O uso do BCrypt para criptografar senhas é uma prática essencial de segurança em aplicações web, pois oferece uma camada adicional de proteção contra ataques de força bruta e violações de dados. Ao utilizar o BCrypt, as senhas dos usuários são transformadas em hashes irreversíveis antes de serem armazenadas no banco de dados, garantindo que mesmo em caso de acesso não autorizado ao banco de dados, as senhas originais permaneçam protegidas. Além disso, o BCrypt utiliza um processo de stretching, que aumenta significativamente o tempo necessário para gerar cada hash, dificultando ainda mais tentativas de quebra de senha. Dessa forma, o uso do BCrypt para criptografar senhas é uma escolha segura e eficaz para proteger as informações dos usuários e manter a integridade e confidencialidade dos dados da aplicação.
+
+  Optamos por utilizar o Swagger para documentar nossas APIs devido à sua facilidade de uso e ampla adoção pela comunidade de desenvolvimento. Com o Swagger, podemos criar uma documentação precisa e detalhada das nossas APIs de forma automatizada, garantindo consistência e precisão. Além disso, a interface interativa do Swagger permite que os usuários testem facilmente os endpoints da API diretamente no navegador, o que facilita o desenvolvimento e a depuração. Ao integrar o Swagger ao nosso projeto, estamos melhorando a comunicação e a colaboração entre as equipes de desenvolvimento, parceiros e usuários finais, além de proporcionar uma experiência mais transparente e intuitiva ao trabalhar com nossas APIs..
