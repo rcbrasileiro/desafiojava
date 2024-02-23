@@ -34,7 +34,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 3. Também é possível acessar a API através do Swagger, para isso basta clicar nesse [link](http://3.92.46.140/swagger-ui/) e acessar a documentação 
 # ESTÓRIAS DE USUÁRIO
 
-##1. Controle de acesso:
+## 1. Controle de acesso:
 
 	* SU01 - Autenticação do usuário:
 		* Como um usuário, quero poder me autenticar no sistema usando minhas credenciais (login/senha) para acessar os recursos que devem ser protegidos.
@@ -65,7 +65,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 			- Retornar as informações do usuário.
 			- Retornar a data de criação do usuário e a últivez que o usuário realizou o login.
 			
-##2. Gestão dos usuários:
+## 2. Gestão dos usuários:
 
 	* SU05 - Listagem dos usuários:
 		* Como um usuário não autenticado, quero listar todos os usuários cadastrados no sistema.
@@ -102,7 +102,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 		* Critérios de Aceitação:
 			- Usuário removido no sistema.			
 			
-##3. Gestão dos carros:
+## 3. Gestão dos carros:
 
 	* SU09 - Listagem dos carros:
 		* Como um usuário autenticado, quero listar todos os carros do usuário autenticado no sistema.
