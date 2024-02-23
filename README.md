@@ -29,7 +29,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 2. Para executar os testes unitários, pode-se fazer das seguintes formas:
 	* Ir até a raiz do projeto e executar o comando **mvn test** (para isso é necessário ter a versão do maven configurada nas variáveis do ambiente.
 	* Criar uma tarefa do tipo Maven build e no goal colocar **test**
-	* Clicar com o botão direito do mouse em cima do diretório de teste (**src/main/test**) e depois **Run as > Junit Test** ou simplesmente o atalho ** ALT + SHIFT + X, T**
+	* Clicar com o botão direito do mouse em cima do diretório de teste (**src/main/test**) e depois **Run as > Junit Test** ou simplesmente o atalho **ALT + SHIFT + X, T**
 
 3. Também é possível acessar a API através do Swagger, para isso basta clicar nesse [link](http://3.92.46.140/swagger-ui/index.html) e acessar a documentação 
 
