@@ -14,7 +14,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 4. Flyway - Para migração de dados
 5. Testes unitários usando MockMvc
 6. Senha do usuário com criptografia - bcrypt
-7. Heroko - Para deploy da aplicação
+7. AWS com EC2 e ECS - Para deploy da aplicação
 8. Swagger - Para documentação da API
 
 # Testes
