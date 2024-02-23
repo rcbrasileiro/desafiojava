@@ -31,7 +31,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 	* Criar uma tarefa do tipo Maven build e no goal colocar **test**
 	* Clicar com o botão direito do mouse em cima do diretório de teste (**src/main/test**) e depois **Run as > Junit Test** ou simplesmente o atalho ** ALT + SHIFT + X, T**
 
-3. Também é possível acessar a API através do Swagger, para isso basta clicar nesse [link](http://3.92.46.140/swagger-ui/) e acessar a documentação 
+3. Também é possível acessar a API através do Swagger, para isso basta clicar nesse [link](http://3.92.46.140/swagger-ui/index.html) e acessar a documentação 
 # ESTÓRIAS DE USUÁRIO
 
 ## 1. Controle de acesso:
