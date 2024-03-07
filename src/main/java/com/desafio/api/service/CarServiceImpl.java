@@ -85,5 +85,19 @@ public class CarServiceImpl implements CarService {
 	private boolean isNewCar(Car car) {
 		return car.getId() == null || car.getId() <= 0;
 	}
+
+	@Override
+	public Car findByLicensePlate(String licensePlate) {
+		return this.carRepository.findByLicensePlate(licensePlate);
+	}
+
+	@Override
+	public long defineCarId(Car car) {
+		Car carSaved = this.findByLicensePlate(car.getLicensePlate());
+		if(Objects.nonNull(carSaved)) {
+			return carSaved.getId();
+		}
+		return 0L;
+	}
 	
 }

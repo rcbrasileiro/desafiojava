@@ -23,4 +23,8 @@ public interface CarService {
 
 	void validateFields(Car car);
 	
+	Car findByLicensePlate(String licensePlate);
+	
+	long defineCarId(Car car);
+	
 }
