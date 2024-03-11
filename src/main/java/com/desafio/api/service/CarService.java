@@ -27,4 +27,6 @@ public interface CarService {
 	
 	long defineCarId(Car car);
 	
+	Page<Car> findAllByUserId(Pageable pageable);
+	
 }

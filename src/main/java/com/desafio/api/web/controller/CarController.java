@@ -95,7 +95,7 @@ public class CarController {
 	      @ApiResponse(responseCode = "401", description = "Unauthorized - invalid session")})
 	@GetMapping
 	public ResponseEntity<Page<CarResultDTO>> list(Pageable pageable) {
-		Page<Car> carsPage = this.carService.findAll(pageable);
+		Page<Car> carsPage = this.carService.findAllByUserId(pageable);
 		return ResponseEntity.ok(carsPage.map(CarResultDTO::new));
 	}
 
