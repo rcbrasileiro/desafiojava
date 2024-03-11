@@ -89,7 +89,7 @@ public class CarController {
 
 	@Operation(
 		      summary = "Listar",
-		      description = "Listar todos os carros")
+		      description = "Listar todos os carros pertencendes ao usuário logado")
 	 @ApiResponses({
 	      @ApiResponse(responseCode = "401", description = "Unauthorized"),
 	      @ApiResponse(responseCode = "401", description = "Unauthorized - invalid session")})
