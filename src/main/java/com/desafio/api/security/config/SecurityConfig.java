@@ -18,7 +18,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.desafio.api.security.UserDetailsServiceImpl;
+import com.desafio.api.security.filter.AuthenticationAuthFilter;
 import com.desafio.api.security.filter.JwtAuthFilter;
+import com.desafio.api.security.util.Access;
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +30,8 @@ public class SecurityConfig {
 	@Autowired
 	private JwtAuthFilter jwtAuthFilter;
 
-	private static final String[] PUBLIC_ACCESS = { "/h2-console/**", "/api/users/**", "/api/signin" };
+	@Autowired
+	private AuthenticationAuthFilter exceptionAuthFilter;
 
 	@Bean
 	public UserDetailsService userDetailsService() {
@@ -37,12 +40,16 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		return http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers(PUBLIC_ACCESS).permitAll().anyRequest().authenticated())
+		return http.requiresChannel(rc -> rc.requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+				.requiresSecure())
+				.csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests(
+						auth -> auth.requestMatchers(Access.PUBLIC_ACCESS).permitAll().anyRequest().authenticated())
 				.headers(headers -> headers.frameOptions(f -> f.sameOrigin()))
 				.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider())
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+				.addFilterBefore(exceptionAuthFilter, JwtAuthFilter.class)
 				.build();
 	}
 

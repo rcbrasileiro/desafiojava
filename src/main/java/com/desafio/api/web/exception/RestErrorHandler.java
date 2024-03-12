@@ -23,12 +23,12 @@ public class RestErrorHandler {
 		return ResponseEntity.status(status).body(error);
 	}
 
-	@ExceptionHandler({InvalidFieldsException.class})
+	@ExceptionHandler({ InvalidFieldsException.class })
 	public ResponseEntity<RestError> requestInvalidFieldsException(InvalidFieldsException ex) {
 		return ResponseEntity.badRequest().body(new RestError("Invalid fields", HttpStatus.BAD_REQUEST.value()));
 	}
 
-	@ExceptionHandler({ LicensePlateAlreadyExistsException.class,EmailAlreadyExistsException.class,LoginAlreadyExistsException.class })
+	@ExceptionHandler(LicensePlateAlreadyExistsException.class)
 	public ResponseEntity<RestError> licensePlateAlreadyExistsException(LicensePlateAlreadyExistsException ex) {
 
 		HttpStatus status = HttpStatus.CONFLICT;
@@ -37,11 +37,30 @@ public class RestErrorHandler {
 
 		return ResponseEntity.status(status).body(restError);
 	}
-	
+
+	@ExceptionHandler(EmailAlreadyExistsException.class)
+	public ResponseEntity<RestError> emailAlreadyExistsException(EmailAlreadyExistsException ex) {
+
+		HttpStatus status = HttpStatus.CONFLICT;
+
+		RestError restError = new RestError(ex.getMessage(), status.value());
+
+		return ResponseEntity.status(status).body(restError);
+	}
+
+	@ExceptionHandler(LoginAlreadyExistsException.class)
+	public ResponseEntity<RestError> loginAlreadyExistsException(LoginAlreadyExistsException ex) {
+
+		HttpStatus status = HttpStatus.CONFLICT;
+
+		RestError restError = new RestError(ex.getMessage(), status.value());
+
+		return ResponseEntity.status(status).body(restError);
+	}
+
 	@ExceptionHandler({ AuthenticationException.class })
 	@ResponseBody
 	public ResponseEntity<RestError> handleAuthenticationException(AuthenticationException ex) {
-
 		RestError restError = new RestError("Invalid login or password", HttpStatus.UNAUTHORIZED.value());
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(restError);
 	}

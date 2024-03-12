@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.desafio.api.web.dto.CarFormDTO;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Tag(name = "Carro", description = "Entidade que representa o carro")
 @Entity
 @Table(name = "car_table")
 @Getter

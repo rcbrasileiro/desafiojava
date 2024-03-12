@@ -22,8 +22,13 @@ import com.desafio.api.service.UserService;
 import com.desafio.api.web.dto.UserFormDTO;
 import com.desafio.api.web.dto.UserResultDTO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 
+@Tag(name = "Gestão de usuário", description = "API de gestão dos usuários")
 @RestController
 @RequestMapping("/api/users")
 @Validated
@@ -32,6 +37,14 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Operation(
+		      summary = "Salvar",
+		      description = "Salva um novo usuário")
+	 @ApiResponses({
+	      @ApiResponse(responseCode = "409", description = "Email already exists"),
+	      @ApiResponse(responseCode = "409", description = "Login already exists"),
+	      @ApiResponse(responseCode = "400", description = "Invalid fields"),
+	      @ApiResponse(responseCode = "422", description = "Missing fields")})
 	@PostMapping
 	public ResponseEntity<UserResultDTO> save(@RequestBody @Validated UserFormDTO userFormDTO,
 			HttpServletRequest request) {
@@ -43,6 +56,14 @@ public class UserController {
 		return ResponseEntity.created(URI.create(location)).body(new UserResultDTO(user));
 	}
 
+	@Operation(
+		      summary = "Atualizar",
+		      description = "Atualizar um usuário")
+	 @ApiResponses({
+	      @ApiResponse(responseCode = "409", description = "Email already exists"),
+	      @ApiResponse(responseCode = "409", description = "Login already exists"),
+	      @ApiResponse(responseCode = "400", description = "Invalid fields"),
+	      @ApiResponse(responseCode = "422", description = "Missing fields")})
 	@PutMapping("/{id}")
 	public ResponseEntity<UserResultDTO> update(@PathVariable Long id,
 			@RequestBody @Validated UserFormDTO userFormDTO) {
@@ -52,18 +73,27 @@ public class UserController {
 		return ResponseEntity.ok(new UserResultDTO(user));
 	}
 
+	@Operation(
+		      summary = "Deletar",
+		      description = "Deletar um usuário")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		this.userService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
+	@Operation(
+		      summary = "Listar",
+		      description = "Listar todos os usuários")	 
 	@GetMapping
 	public ResponseEntity<Page<UserResultDTO>> list(Pageable pageable) {
 		Page<User> userPage = this.userService.findAll(pageable);
 		return ResponseEntity.ok(userPage.map(UserResultDTO::new));
 	}
 	
+	@Operation(
+		      summary = "Buscar",
+		      description = "Buscar por id")
 	@GetMapping("/{id}")
     public ResponseEntity<UserResultDTO> findById(@PathVariable Long id) {
         Optional<User> userOptional = this.userService.findById(id);
