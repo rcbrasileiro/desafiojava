@@ -45,7 +45,7 @@ public class CarController {
 	      @ApiResponse(responseCode = "401", description = "Unauthorized - invalid session"),
 	      @ApiResponse(responseCode = "409", description = "License plate already exists"),
 	      @ApiResponse(responseCode = "400", description = "Invalid fields"),
-	      @ApiResponse(responseCode = "402", description = "Missing fields")})
+	      @ApiResponse(responseCode = "422", description = "Missing fields")})
 	@PostMapping
 	public ResponseEntity<CarResultDTO> save(@RequestBody @Validated CarFormDTO carFormDTO,
 			HttpServletRequest request) {
@@ -65,7 +65,7 @@ public class CarController {
 	      @ApiResponse(responseCode = "401", description = "Unauthorized - invalid session"),
 	      @ApiResponse(responseCode = "409", description = "License plate already exists"),
 	      @ApiResponse(responseCode = "400", description = "Invalid fields"),
-	      @ApiResponse(responseCode = "402", description = "Missing fields")})
+	      @ApiResponse(responseCode = "422", description = "Missing fields")})
 	@PutMapping("/{id}")
 	public ResponseEntity<CarResultDTO> update(@PathVariable Long id, @RequestBody @Validated CarFormDTO carFormDTO) {
 		Car car = Car.buildToCar(carFormDTO);
@@ -89,13 +89,13 @@ public class CarController {
 
 	@Operation(
 		      summary = "Listar",
-		      description = "Listar todos os carros")
+		      description = "Listar todos os carros pertencendes ao usuário logado")
 	 @ApiResponses({
 	      @ApiResponse(responseCode = "401", description = "Unauthorized"),
 	      @ApiResponse(responseCode = "401", description = "Unauthorized - invalid session")})
 	@GetMapping
 	public ResponseEntity<Page<CarResultDTO>> list(Pageable pageable) {
-		Page<Car> carsPage = this.carService.findAll(pageable);
+		Page<Car> carsPage = this.carService.findAllByUserId(pageable);
 		return ResponseEntity.ok(carsPage.map(CarResultDTO::new));
 	}
 

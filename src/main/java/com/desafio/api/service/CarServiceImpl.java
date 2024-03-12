@@ -1,11 +1,13 @@
 package com.desafio.api.service;
 
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -84,6 +86,30 @@ public class CarServiceImpl implements CarService {
 
 	private boolean isNewCar(Car car) {
 		return car.getId() == null || car.getId() <= 0;
+	}
+
+	@Override
+	public Car findByLicensePlate(String licensePlate) {
+		return this.carRepository.findByLicensePlate(licensePlate);
+	}
+
+	@Override
+	public long defineCarId(Car car) {
+		Car carSaved = this.findByLicensePlate(car.getLicensePlate());
+		if(Objects.nonNull(carSaved)) {
+			return carSaved.getId();
+		}
+		return 0L;
+	}
+
+	@Override
+	public Page<Car> findAllByUserId(Pageable pageable) {
+		User user = LoggedUser.getUser();
+		if(Objects.isNull(user)) {
+	        return new PageImpl<>(Collections.emptyList(), pageable, 0);
+
+		}
+		return this.carRepository.findAllByUserId(user.getId(), pageable);		
 	}
 	
 }

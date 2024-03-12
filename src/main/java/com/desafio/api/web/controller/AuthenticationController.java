@@ -2,6 +2,7 @@ package com.desafio.api.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +51,7 @@ public class AuthenticationController {
 	 @ApiResponses({
 	      @ApiResponse(responseCode = "401", description = "Unauthorized"),
 	      @ApiResponse(responseCode = "401", description = "Unauthorized - invalid session")})
-	@PostMapping("/me")
+	@GetMapping("/me")
 	public ResponseEntity<UserMeDTO> me() {
 		User user = this.userService.findById(LoggedUser.getUser().getId()).get();
 		UserMeDTO userMeDTO = new UserMeDTO(user);

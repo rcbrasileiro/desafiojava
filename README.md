@@ -24,7 +24,7 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 	* [Clone o projeto](https://github.com/rcbrasileiro/desafiojava.git)
 	* Atualize as dependências do maven
 	* Execute a aplicação
-	* Obs: A aplicação sobre na porta 8080, caso deseje substituir, edite o arquivo **application.properties**
+	* Obs: A aplicação sobe na porta 8080, caso deseje substituir, edite o arquivo **application.properties**
 	
 2. Para executar os testes unitários, pode-se fazer das seguintes formas:
 	* Ir até a raiz do projeto e executar o comando **mvn test** (para isso é necessário ter a versão do maven configurada nas variáveis do ambiente.

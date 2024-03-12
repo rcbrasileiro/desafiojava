@@ -44,7 +44,7 @@ public class UserController {
 	      @ApiResponse(responseCode = "409", description = "Email already exists"),
 	      @ApiResponse(responseCode = "409", description = "Login already exists"),
 	      @ApiResponse(responseCode = "400", description = "Invalid fields"),
-	      @ApiResponse(responseCode = "402", description = "Missing fields")})
+	      @ApiResponse(responseCode = "422", description = "Missing fields")})
 	@PostMapping
 	public ResponseEntity<UserResultDTO> save(@RequestBody @Validated UserFormDTO userFormDTO,
 			HttpServletRequest request) {
@@ -63,7 +63,7 @@ public class UserController {
 	      @ApiResponse(responseCode = "409", description = "Email already exists"),
 	      @ApiResponse(responseCode = "409", description = "Login already exists"),
 	      @ApiResponse(responseCode = "400", description = "Invalid fields"),
-	      @ApiResponse(responseCode = "402", description = "Missing fields")})
+	      @ApiResponse(responseCode = "422", description = "Missing fields")})
 	@PutMapping("/{id}")
 	public ResponseEntity<UserResultDTO> update(@PathVariable Long id,
 			@RequestBody @Validated UserFormDTO userFormDTO) {
