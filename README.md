@@ -24,14 +24,19 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 	* [Clone o projeto](https://github.com/rcbrasileiro/desafiojava.git)
 	* Atualize as dependências do maven
 	* Execute a aplicação
-	* Obs: A aplicação sobe na porta 8080, caso deseje substituir, edite o arquivo **application.properties**
+	* Obs: A aplicação sobe na porta 80, caso deseje substituir, edite o arquivo **application.properties**
+
 	
 2. Para executar os testes unitários, pode-se fazer das seguintes formas:
 	* Ir até a raiz do projeto e executar o comando **mvn test** (para isso é necessário ter a versão do maven configurada nas variáveis do ambiente.
 	* Criar uma tarefa do tipo Maven build e no goal colocar **test**
 	* Clicar com o botão direito do mouse em cima do diretório de teste (**src/main/test**) e depois **Run as > Junit Test** ou simplesmente o atalho **ALT + SHIFT + X, T**
 
-3. Também é possível acessar a API através do Swagger, para isso basta clicar nesse [link](http://3.92.46.140/swagger-ui/index.html) e acessar a documentação 
+3. Também é possível acessar a API através do Swagger, para isso basta clicar nesse [link](https://18.232.136.120/swagger-ui/index.html) e acessar a documentação
+
+4. Para verificar o repositório do frontend, basta acessar o github nesse [link](https://github.com/rcbrasileiro/desafioangularapp)
+
+5. Para verificar o frontend integrado com o backend, acesse esse [link](https://rcbrasileiro.github.io/desafioangularapp)
 
 # ESTÓRIAS DE USUÁRIO
 
