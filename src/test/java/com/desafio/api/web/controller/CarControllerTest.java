@@ -171,7 +171,7 @@ public class CarControllerTest {
         
 		when(userRepository.findByLogin(user.getLogin())).thenReturn(user);
         
-        when(carService.findAll(any(Pageable.class))).thenReturn(carsPage);
+        when(carService.findAllByUserId(any(Pageable.class))).thenReturn(carsPage);
         
         String token = getToken();
 
@@ -182,7 +182,7 @@ public class CarControllerTest {
                 .andExpect(jsonPath("$.content").isArray())
                 .andExpect(jsonPath("$.content.length()").value(carList.size()));
 
-        Mockito.verify(carService, Mockito.times(1)).findAll(any(Pageable.class));
+        Mockito.verify(carService, Mockito.times(1)).findAllByUserId(any(Pageable.class));
     }
 
 	private static String asJsonString(final Object obj) {
