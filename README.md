@@ -32,11 +32,11 @@ Criar uma API REST para gestão de usuários e carros, implementando um controle
 	* Criar uma tarefa do tipo Maven build e no goal colocar **test**
 	* Clicar com o botão direito do mouse em cima do diretório de teste (**src/main/test**) e depois **Run as > Junit Test** ou simplesmente o atalho **ALT + SHIFT + X, T**
 
-3. Também é possível acessar a API através do Swagger, para isso basta clicar nesse [link](https://18.232.136.120/swagger-ui/index.html) e acessar a documentação
+3. Também é possível acessar a API através do Swagger, para isso basta clicar nesse [link](http://54.146.211.140:8080/swagger-ui/index.html) e acessar a documentação
 
 4. Para verificar o repositório do frontend, basta acessar o github nesse [link](https://github.com/rcbrasileiro/desafioangularapp)
 
-5. Para verificar o frontend integrado com o backend, acesse esse [link](https://rcbrasileiro.github.io/desafioangularapp)
+5. Para verificar o frontend integrado com o backend, acesse esse [link](http://54.146.211.140)
 
 # ESTÓRIAS DE USUÁRIO
 
